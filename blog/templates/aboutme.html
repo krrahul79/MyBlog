@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}
+<title>{{title}}</title>
+{% endblock %}
+{% block content %}
+
+<body class="text-center">
+    <h3>{{about.post_title}}</h3>
+        <div class="container pb-3">
+            <p><em>{{about.post_short_desc|safe}}</small></p>
+            <img src="/static/images/{{about.post_image}}"  alt="Intro image" class="intro-image img-fluid pb-2" width="200" height="200"/>
+            <p>{{about.post_desc|safe}}</p>
+        </div>
+</body>
+{% endblock %}

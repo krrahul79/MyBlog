@@ -1,0 +1,71 @@
+
+
+body {
+    font-family:helvetica, sans-serif;
+    background-color: #e6e6e6;
+    min-height: 100vh; 
+  }
+
+  .post-link {
+    text-decoration: none !important;
+    color:black
+}
+.post-link :hover{
+    text-decoration: none !important;
+    color:black
+}
+
+.checked{
+    color: orange;
+}
+
+
+.star:hover {
+    filter: drop-shadow(1px 1px 4px gold);
+}
+
+
+.post-content:hover {
+    margin:102%;
+    opacity: 0.9;
+    transition: margin 0.7s;
+    background-color: #faf8f8;
+    filter: drop-shadow(1px 1px 4px #3669d6);
+}
+
+
+.post-content {
+    background-color: #f3f2f2;
+}
+
+.bottom-container{
+    color: #f7f5f5;
+}
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+div footer p a{
+    text-decoration: none !important;
+    color: white;
+}
+
+.my-rating{
+    cursor: pointer;
+}
+
+.image_in_post {
+    float: left; 
+    margin: 5px;
+}
+.post_desc {
+    text-align: justify;
+}
+/* https://www.w3schools.com/howto/howto_css_rounded_images.asp */
+
+.intro-image{
+    border-radius: 50%;
+}

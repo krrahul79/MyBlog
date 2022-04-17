@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>{{post.post_title}}</title>
+{% endblock %}
+{% block content %}
+<div class="container pb-3 mb-3">
+    <div class="text-center "></div>
+    <h3 class="post_title text-center mt-2">{{post.post_title}}</h3>
+    <!-- accessed on 18-01-2022 to wrap text around image
+          https://www.geeksforgeeks.org/how-to-wrap-the-text-around-an-image-using-html-and-css/ -->
+    <div class="square">
+        <div>
+            <img class="image_in_post mr-3" alt="post-image" src="/static/images/{{post.post_image}}" width="200" height="200">
+        </div>
+        <div class="post_desc detailed_description">
+            {{post.post_desc | safe}}
+        </div>
+    </div>
+    {% if current_user.is_authenticated %}
+    <div class="container rate row pb-3">
+        <h4 class="p-0 m-0">My rating : </h4>
+        <div class="p-1">
+            {% for i in range(value) %}
+            <span class="fa fa-star star checked align-self-center my-rating" value="{{i+1}}"></span>
+            {% endfor %}
+            {% for i in range(5-value)%}
+            <span class="fa fa-star star align-self-center my-rating" value="{{i+value+1}}"></span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container col-md-7 p-0">
+        <form aria-label="post_comment_fields" method="POST" class="form-comment" style="color:white">
+            {{ form.csrf_token }}
+            {{form.comment(class="form-control comment_text",rows="5",placeholder="Comment")}}
+            <div class="pt-2 pb-2 text-right">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+    {% endif %}
+    <div class="container rate row pb-3">
+        <form aria-label="post_rating_fields" method="POST" action="{{url_for('addrating')}}" class="star-rating-form">
+            {{star_form.csrf_token}}
+            {{star_form.postid(id="postid",class="post-value",value=post.id)}}
+            {{star_form.starrating(id="starrating",class="star-rating post_rating",value=value)}}
+        </form>
+        <h4 class="p-0 m-0 post_rating">Overall rating : </h4>
+        <div class="p-1">
+            {% for i in range(avg_rating) %}
+            <span class="fa fa-star star checked align-self-center overall-stars" value="{{i+1}}"></span>
+            {% endfor %}
+            {% for i in range(5-avg_rating)%}
+            <span class="fa fa-star star align-self-center overall-stars" value="{{i+value+1}}"></span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="container col-md-7 p-2">
+            {% for comment in comments%}
+            <div class="row border border-light rounded">
+                <div class="col">
+                    <h5>{{comment.user.email}}</h5>
+                    <p>{{comment.comment_desc}}</p>
+                    <span class="pull-right"> {{comment.date.strftime('%d %B, %Y')}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    const stars = document.querySelectorAll(".my-rating")
+    const star_rating_field = document.querySelector(".star-rating")
+    const star_rating_form = document.querySelector(".star-rating-form")
+    stars.forEach(star => {
+        star.addEventListener("click", (event) => {
+            console.log(star.getAttribute("value"))
+            star_rating_field.setAttribute("value", star.getAttribute("value"))
+            star_rating_form.submit()
+        })
+    })
+</script>
+
+{% endblock %}
